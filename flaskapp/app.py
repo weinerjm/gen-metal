@@ -1,11 +1,16 @@
 from flask import Flask, render_template
 from flask.ext.pymongo import PyMongo
+import os
 app = Flask(__name__)
 mongo = PyMongo(app)
 
 @app.route("/")
 def main():
-    return render_template('index.html')
+    client = pymongo.MongoClient(os.environ['MONGODB_URI'])
+    db = client.get_default_database()
+    res = db['lyrics'].find_one()
+    return str(res)
+    #return render_template('index.html')
 
 @app.route("/showSignUp")
 def showSignUp():
