@@ -10,3 +10,8 @@ lowercaser.py
 *.ipynb
 #virual environment
 venv
+# word lists
+word_lists
+# data files
+*.gz
+*.json
