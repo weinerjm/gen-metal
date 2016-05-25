@@ -8,7 +8,7 @@ def main():
                                  connectTimeoutMS=30000,
                                  socketTimeoutMS=None,
                                  socketKeepAlive=True)
-    out_db = client['lyricsdb']
+    out_db = client.get_default_database()
     out_coll = 'lyrics'
 
     fname = 'lyrics.json.gz'
