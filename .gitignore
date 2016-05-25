@@ -1,0 +1,12 @@
+# python runtime files
+*.pyc
+# pickled objects
+*.p
+# lowercaser utility script
+lowercaser.py
+# pictures
+*.png
+# ipython notebooks
+*.ipynb
+#virual environment
+venv
