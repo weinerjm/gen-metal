@@ -4,7 +4,7 @@ import pymongo, os
 from randgen import get_lyrics_text, TextGen
 app = Flask(__name__)
 #mongo = PyMongo(app)
-reload(sys)
+import sys
 sys.setdefaultencoding("utf-8")
 
 @app.route("/")

@@ -5,7 +5,7 @@ nltk.data.path.append('./nltk_data/')
 from pprint import pprint
 from nltk.probability import LidstoneProbDist
 
-reload(sys)
+import sys
 sys.setdefaultencoding("utf-8")
 
 # grab text from pymongo database
