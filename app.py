@@ -1,6 +1,6 @@
 from flask import Flask, render_template
 #from flask.ext.pymongo import PyMongo
-import pymongo, os, mongodb_uri
+import pymongo, os
 from randgen import get_lyrics_text, TextGen
 app = Flask(__name__)
 #mongo = PyMongo(app)
