@@ -1,8 +1,10 @@
 import pymongo, re, random
 import nltk
 import nltk.data
+nltk.data.path.append('./nltk_data/')
 from pprint import pprint
 from nltk.probability import LidstoneProbDist
+
 # grab text from pymongo database
 
 def get_lyrics_text(db, n_records=50):

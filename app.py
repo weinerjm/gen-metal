@@ -13,13 +13,13 @@ def main():
                                      connectTimeoutMS=30000,
                                      socketTimeoutMS=None,
                                      socketKeepAlive=True)
-    """else:
+    else:
         from mongodb_uri import MONGODB_URI
         client = pymongo.MongoClient(MONGODB_URI,
                                      connectTimeoutMS=30000,
                                      socketTimeoutMS=None,
                                      socketKeepAlive=True)
-    """
+    
     db = client.get_default_database()
     lyrics_text = get_lyrics_text(db, n_records=20)
     tg = TextGen(lyrics_text)
@@ -34,4 +34,4 @@ def showSignUp():
     return render_template('signup.html')
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run()
