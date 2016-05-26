@@ -5,10 +5,8 @@ from pprint import pprint
 from nltk.probability import LidstoneProbDist
 # grab text from pymongo database
 
-def get_lyrics_text(frac=1.0):
-    client = pymongo.MongoClient()
-    db = client['lyricsdb']
-    cur = db['lyrics'].find()
+def get_lyrics_text(db, n_records=50):
+    cur = db['lyrics'].find().limit(n_records)
 
     lyrics_list = []
     for album in cur:
@@ -17,9 +15,7 @@ def get_lyrics_text(frac=1.0):
             lyrics_clean = re.sub(r'\s+', ' ', lyrics_body).lower().strip()
             lyrics_list.append(lyrics_clean)
 
-    lyrics_list = lyrics_list[:int(len(lyrics_list)*frac)]
     lyrics_text = ' '.join(lyrics_list)
-    print "number of words: {0}".format(len(lyrics_text.split()))
 
     return lyrics_text
 

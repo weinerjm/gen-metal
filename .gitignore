@@ -15,3 +15,5 @@ word_lists
 # data files
 *.gz
 *.json
+# url for mongodb
+mongodb_uri.py
