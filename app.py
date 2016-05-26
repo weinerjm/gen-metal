@@ -21,7 +21,7 @@ def main():
                                      socketKeepAlive=True)
      
     db = client.get_default_database()
-    lyrics_text = get_lyrics_text(db, n_records=1000)
+    lyrics_text = get_lyrics_text(db, n_records=20)
     tg = TextGen(lyrics_text)
     display_html = ' \n'.join(tg.random_text())
     return display_html
@@ -34,4 +34,4 @@ def showSignUp():
     return render_template('signup.html')
 
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True)
