@@ -1,5 +1,6 @@
 from flask import Flask, render_template
 from flask.ext.pymongo import PyMongo
+import pymongo
 import os
 app = Flask(__name__)
 mongo = PyMongo(app)
