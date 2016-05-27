@@ -2,12 +2,13 @@ from flask import Flask, render_template, current_app
 from flask.ext.pymongo import PyMongo
 from metalapp import app, mongo
 from randgen import get_lyrics_text, TextGen
+from fix_unicode import fix_bad_unicode
 
 with app.app_context():
     categories = ['all','judas_priest','highlander',
                   'violence','blasphemy','spooky']
 
-    lyrics_build = get_lyrics_text(mongo.db, n_records=50, sort_field=None)
+    lyrics_build = get_lyrics_text(mongo.db, n_records=500, sort_field=None)
     tg_dict = {}
     tg_dict['all'] = TextGen(lyrics_build)
 
@@ -15,12 +16,15 @@ with app.app_context():
 def main():
     global tg_dict
     #TODO: make all display_html templates
-    display_html = '<center><h1>All Lyrics</h1></center>'
-    display_html += '<br><br>'.join(tg_dict['all'].random_text())
-    return display_html
+    display_html = tg_dict['all'].random_text()
+    try:
+        pass
+        #display_html = fix_bad_unicode(' '.join(display_html).decode('latin9').encode('utf8'))
+    except:
+        display_html.append(u"unicode failed")
 
     # want to render here
-    #return render_template('index.html')
+    return render_template('index.html', category='All', text_lines=display_html)
 
 @app.route('/<category>')
 def special_lyrics(category):
@@ -36,15 +40,19 @@ def special_lyrics(category):
         return "invalid category: {0}".format(category)
     # make  
     if category not in tg_dict:
-        lyrics_text = get_lyrics_text(mongo.db, n_records=50, 
-                                      sort_field=(category,0.2))
+        lyrics_text = get_lyrics_text(mongo.db, n_records=300, 
+                                      sort_field=(category,6))
         tg_dict[category] = TextGen(lyrics_text)
     
-    #TODO: make all display_html templates
-    display_html = '<center><h1>{0} Lyrics</h1></center>'.format(category.title())
-    display_html += '<br><br>'.join(tg_dict[category].random_text())
-    
-    return display_html
+    display_html = tg_dict[category].random_text()
+    try:
+        pass
+        #display_html = fix_bad_unicode(' '.join(display_html).decode('latin9').encode('utf8'))
+    except:
+        display_html.append(u"unicode failed")
+
+    # want to render here
+    return render_template('index.html', category=category.title(), text_lines=display_html)
 
 if __name__ == '__main__':
     #app.debug=True

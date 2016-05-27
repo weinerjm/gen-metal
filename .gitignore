@@ -1,5 +1,7 @@
 # python runtime files
 *.pyc
+# editing files
+*.swp
 # pickled objects
 *.p
 # lowercaser utility script
