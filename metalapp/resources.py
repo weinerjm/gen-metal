@@ -8,7 +8,7 @@ with app.app_context():
     categories = ['all','judas_priest','highlander',
                   'violence','blasphemy','spooky']
 
-    lyrics_build = get_lyrics_text(mongo.db, n_records=500, sort_field=None)
+    lyrics_build = get_lyrics_text(mongo.db, n_records=100, sort_field=None)
     tg_dict = {}
     tg_dict['all'] = TextGen(lyrics_build)
 
@@ -26,8 +26,9 @@ def main():
     # want to render here
     return render_template('index.html', category='All', text_lines=display_html)
 
-@app.route('/<category>')
-def special_lyrics(category):
+@app.route('/<category>', defaults={'n': 100})
+@app.route('/<category>/<int:n>')
+def special_lyrics(category, n):
     """
     Given a category, generate random lyrics for that category.
     If a TextGen object doesn't exist for that category, fetch the data
@@ -40,7 +41,7 @@ def special_lyrics(category):
         return "invalid category: {0}".format(category)
     # make  
     if category not in tg_dict:
-        lyrics_text = get_lyrics_text(mongo.db, n_records=300, 
+        lyrics_text = get_lyrics_text(mongo.db, n_records=n, 
                                       sort_field=(category,6))
         tg_dict[category] = TextGen(lyrics_text)
     
