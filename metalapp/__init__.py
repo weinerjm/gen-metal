@@ -8,7 +8,7 @@ app = Flask(__name__, instance_relative_config=True)
 app.config.from_object('config.default')
 
 # Load configuration from instance folder
-app.config.from_pyfile('config.py')
+# app.config.from_pyfile('config.py')
 
 # use heroku environment variables
 if 'MONGODB_URI' in os.environ:
