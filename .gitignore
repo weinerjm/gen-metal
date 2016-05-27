@@ -17,3 +17,6 @@ word_lists
 *.json
 # url for mongodb
 mongodb_uri.py
+# instance folder
+instance
+config/development.py

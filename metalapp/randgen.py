@@ -5,33 +5,29 @@ nltk.data.path.append('./nltk_data/')
 from pprint import pprint
 from nltk.probability import LidstoneProbDist
 
-
-# grab text from pymongo database
-
-def get_lyrics_text(db, n_records=50):
-    cur = db['lyrics'].find().limit(n_records)
-
+def get_lyrics_text(db, n_records=50, sort_field=None):
+    """
+    Gets raw lyrics text from Mongo database.
+    """
+    if sort_field:
+        field, cutoff = sort_field
+        cur = db['lyrics'].find({field: {'$gt': cutoff}}).limit(n_records)
+    else:
+        cur = db['lyrics'].find().limit(n_records)
+    
+    
     lyrics_list = []
+    
     for album in cur:
         lyrics_dict = album['lyrics']
         for title, lyrics_body in lyrics_dict.iteritems():
-            lyrics_clean = re.sub(r'\s+', ' ', lyrics_body).lower().strip()
+            #lyrics_clean = re.sub(r'\s+', ' ', lyrics_body).lower().strip()
+            lyrics_clean = lyrics_body
             lyrics_list.append(lyrics_clean)
-
+    
     lyrics_text = ' '.join(lyrics_list)
 
     return lyrics_text
-
-# clean up the descriptions--string parsing stuff
-def clean_description(d):
-    if d is not None:
-        d = re.sub('[.?/(){}!]', ' ',d) # replace punctuation with space
-        d = re.sub('[^\w\d\s]','',d) # remove non-alphanumeric and space
-        d = re.sub('\s+',' ',d) # replace long spaces with single space
-        d = d.lower()
-        return d
-    else:
-        return ''
 
 class TextGen(object):
     def __init__(self, in_text):
@@ -40,7 +36,7 @@ class TextGen(object):
 
         self.tokenized_text = self.tokenizer.tokenize(in_text)
         self.content_model = nltk.model.ngram.NgramModel(3, self.tokenized_text, estimator=self.est)
-        self.text = []
+        self.text = ''
 
     def random_text(self, n_words=100):
         starting_words = self.content_model.generate(n_words)[-2:]
@@ -53,5 +49,5 @@ class TextGen(object):
         sentences = [sent.capitalize() for sent in sentences]
         #content = ' \n'.join(sentences)
         sentences = map(lambda x: re.sub(r'[\s.]([\',?.!"(](?:\s|$))', r'\1', x), sentences)
-        self.text = sentences
+        self.text = sentences # save the text
         return sentences
