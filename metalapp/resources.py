@@ -1,4 +1,4 @@
-from flask import Flask, render_template, current_app
+from flask import Flask, request, render_template, current_app
 from flask.ext.pymongo import PyMongo
 from metalapp import app, mongo
 from randgen import get_lyrics_text, TextGen
@@ -15,7 +15,6 @@ with app.app_context():
 @app.route("/")
 def main():
     global tg_dict
-    #TODO: make all display_html templates
     display_html = tg_dict['all'].random_text()
     try:
         pass

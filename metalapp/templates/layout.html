@@ -3,10 +3,17 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
+        <meta charset="utf-8"></meta>
         <title>{% block title %}{% endblock %}</title>
     </head>
     <body>
     {% block body %}
     {% endblock %}
+    <select onchange="window.location=this.options[this.selectedIndex].value" name="category">
+        {% for cat in ["all","blasphemy","highlander","judas_priest","spooky","violence"] %}
+        <option value="{{ request.page ~ "/" ~ cat }}">{{ cat }}</option>
+        {% endfor %}
+    </select>
+
     </body>
 </html>
