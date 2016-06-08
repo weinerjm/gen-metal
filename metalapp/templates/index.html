@@ -4,9 +4,13 @@
 {% block title %}{{ category }} Lyrics{% endblock %}
 {% block body %}
     {{ super() }}
-    <center><h1>{{ category }} Lyrics</h1></center>
+    <div class="page-header">
+        <center><h1>{{ category }} Lyrics</h1></center>
+    </div>
+    <div class="well">
     {% for line in text_lines %}
         {{ line }}<br><br>
     {% endfor %}
     {{ text }}
+    </div>
 {% endblock %}

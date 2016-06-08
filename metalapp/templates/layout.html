@@ -5,8 +5,18 @@
     <head>
         <meta charset="utf-8"></meta>
         <title>{% block title %}{% endblock %}</title>
+    
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="{{ request.page ~ "/static/css/bootstrap.min.css" }}">
+
+        <!-- Optional theme -->
+        <!--<link rel="stylesheet" href="http://bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous"> -->
+
+        <!-- Latest compiled and minified JavaScript -->
+        <script src="{{ request.page ~ "/static/js/bootstrap.min.js" }}"></script>
     </head>
     <body>
+    <div class="container" role="main">
     {% block body %}
     {% endblock %}
     <select onchange="window.location=this.options[this.selectedIndex].value" name="category">
@@ -14,6 +24,7 @@
         <option value="{{ request.page ~ "/" ~ cat }}">{{ cat }}</option>
         {% endfor %}
     </select>
-
+    <button type="button" class="btn btn-lg btn-primary" name="regen" onclick="window.location.reload(true)">Regen</button>
+    </div>
     </body>
 </html>
