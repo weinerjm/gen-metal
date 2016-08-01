@@ -1,6 +1,7 @@
 gen-metal
 =============
-My first Flask app! I deployed it on Heroku. 
+My first Flask app! I deployed it on [Heroku](http://metalgen.us.to). 
+
 
 It generates random song lyrics based on a large lyrics corpus.
 
