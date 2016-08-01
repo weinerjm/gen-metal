@@ -11,14 +11,16 @@ lowercaser.py
 # ipython notebooks
 *.ipynb
 #virual environment
-venv
+venv/
 # word lists
-word_lists
+word_lists/
+lyrics_split/
+titles.txt
 # data files
 *.gz
 *.json
 # url for mongodb
 mongodb_uri.py
 # instance folder
-instance
+instance/
 config/development.py
