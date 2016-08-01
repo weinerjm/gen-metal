@@ -9,7 +9,7 @@ with app.app_context():
     categories = ['all','judas_priest','highlander',
                   'violence','blasphemy','spooky']
 
-    lyrics_build = get_lyrics_text(mongo.db, n_records=100, sort_field=None)
+    lyrics_build = get_lyrics_text(mongo.db, n_records=75, sort_field=None)
     tg_dict = {}
     tg_dict['all'] = TextGen(lyrics_build)
 
